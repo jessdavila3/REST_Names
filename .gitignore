@@ -6,3 +6,4 @@
 target/classes/templates/form.html
 target/classes/templates/results.html
 *.lst
+.vscode

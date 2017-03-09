@@ -1,0 +1,8 @@
+*.classpath
+*.project
+.settings/org.eclipse.core.resources.prefs
+*.prefs
+*.class
+target/classes/templates/form.html
+target/classes/templates/results.html
+*.lst

@@ -25,13 +25,23 @@ public class PersonController extends WebMvcConfigurerAdapter {
     @Autowired 
     private PersonRepository personRepository;
 
-    // @Override
-    // public void addViewControllers(ViewControllerRegistry registry) {
-    //     registry.addViewController("/results").setViewName("results");
-    // }
+    @GetMapping
+    public String addUserForm(Person person) {
+        return "form";
+    }
 
-    @GetMapping("/add")
-    public @ResponseBody String addNewUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int age, @RequestParam String email) {
+    @PostMapping()
+    public String addUser(@Valid Person person, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "form";
+        }
+        personRepository.save(person);
+        return "redirect:/all";
+    }
+
+
+    @GetMapping("/api/add")
+    public String addNewUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int age, @RequestParam String email) {
         Person p = new Person();
         p.setFirstName(firstName);
         p.setLastName(lastName);

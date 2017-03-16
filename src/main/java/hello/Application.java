@@ -13,3 +13,5 @@ public class Application {
 
 
 }
+
+// left off on http://spring.io/guides/gs/accessing-data-mysql/ (making security change)

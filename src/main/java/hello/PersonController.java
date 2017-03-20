@@ -40,9 +40,18 @@ public class PersonController extends WebMvcConfigurerAdapter {
         return personRepository.findOne(id);
     }
 
-    @PutMapping("/user/{id}")
-    public String updateUser(@PathVariable Long id) {
-        return null; // how can we update a created user?
+    @GetMapping("/user/edit/{id}")
+    public String updateUser(@PathVariable Long id, Person person) {
+        return "update-form";
+    }
+
+    @PostMapping("/user/edit/{id}")
+    public String updateUser(@PathVariable Long id, @Valid Person person, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "update-form";
+        }
+        personRepository.save(person);
+        return "redirect:/all";
     }
 
     @PostMapping("/api/users")

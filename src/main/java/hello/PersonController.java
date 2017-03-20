@@ -25,12 +25,12 @@ public class PersonController extends WebMvcConfigurerAdapter {
     @Autowired 
     private PersonRepository personRepository;
 
-    @GetMapping
+    @GetMapping("/create")
     public String addUserForm(Person person) {
         return "form";
     }
 
-    @PostMapping()
+    @PostMapping("create")
     public String addUser(@Valid Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "form";
@@ -40,7 +40,7 @@ public class PersonController extends WebMvcConfigurerAdapter {
     }
 
 
-    @GetMapping("/api/add")
+    @GetMapping("/api/users")
     public String addNewUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int age, @RequestParam String email) {
         Person p = new Person();
         p.setFirstName(firstName);

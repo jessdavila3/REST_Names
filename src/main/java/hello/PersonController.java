@@ -4,17 +4,13 @@ import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import hello.Person;
 import hello.PersonRepository;
@@ -26,12 +22,12 @@ public class PersonController extends WebMvcConfigurerAdapter {
     private PersonRepository personRepository;
 
     @GetMapping("/create")
-    public String addUserForm(Person person) {
+    public String createUserForm(Person person) {
         return "form";
     }
 
     @PostMapping("create")
-    public String addUser(@Valid Person person, BindingResult bindingResult) {
+    public String createUser(@Valid Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "form";
         }
@@ -39,8 +35,17 @@ public class PersonController extends WebMvcConfigurerAdapter {
         return "redirect:/all";
     }
 
+    @GetMapping("/user/{id}")
+    public @ResponseBody Person readUser(@PathVariable Long id) {
+        return personRepository.findOne(id);
+    }
 
-    @GetMapping("/api/users")
+    @PutMapping("/user/{id}")
+    public String updateUser(@PathVariable Long id) {
+        return null; // how can we update a created user?
+    }
+
+    @PostMapping("/api/users")
     public String addNewUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int age, @RequestParam String email) {
         Person p = new Person();
         p.setFirstName(firstName);

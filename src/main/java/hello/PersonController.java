@@ -21,6 +21,11 @@ public class PersonController extends WebMvcConfigurerAdapter {
     @Autowired 
     private PersonRepository personRepository;
 
+    @GetMapping("/")
+    public String welcome() {
+        return "index";
+    }
+
     @GetMapping("/create")
     public String createUserForm(Person person) {
         return "form";
@@ -41,7 +46,7 @@ public class PersonController extends WebMvcConfigurerAdapter {
     }
 
     @GetMapping("/user/edit/{id}")
-    public String updateUser(@PathVariable Long id, Person person) {
+    public String viewUpdateForm(Person person) {
         return "update-form";
     }
 
@@ -50,24 +55,20 @@ public class PersonController extends WebMvcConfigurerAdapter {
         if (bindingResult.hasErrors()) {
             return "update-form";
         }
-        personRepository.save(person);
+        Person up = personRepository.findOne(id);
+        up.setFirstName(person.getFirstName());
+        up.setLastName(person.getLastName());
+        up.setAge(person.getAge());
+        up.setEmail(person.getEmail());
+
+        personRepository.save(up);
         return "redirect:/all";
     }
 
-    @PostMapping("/api/users")
-    public String addNewUser(@RequestParam String firstName, @RequestParam String lastName, @RequestParam int age, @RequestParam String email) {
-        Person p = new Person();
-        p.setFirstName(firstName);
-        p.setLastName(lastName);
-        p.setAge(age);
-        p.setEmail(email);
-        personRepository.save(p);
-        return "Saved";
-    }
+
 
     @GetMapping("/all")
     public @ResponseBody Iterable<Person> getAllPersons() {
-       // returns json or xml with all persons
        return personRepository.findAll();
     }
 }

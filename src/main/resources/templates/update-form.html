@@ -5,7 +5,7 @@
     <title>Update Form</title>
 </head>
 <body>
-    <form action="#" th:action="@{/user/edit/{id}}" th:object="${person}" method="post">
+    <form action="#" th:object="${person}" th:action="@{/user/edit/}+*{id}"  method="post">
         <table>
             <tr>
                 <td>First Name:</td>

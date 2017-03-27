@@ -27,6 +27,11 @@ public class PersonController extends WebMvcConfigurerAdapter {
         return "index";
     }
 
+    @GetMapping("/all")
+    public @ResponseBody Iterable<Person> getAllPersons() {
+        return personRepository.findAll();
+    }
+
     @GetMapping("/create")
     public String createUserForm(Person person) {
         return "form";
@@ -70,10 +75,9 @@ public class PersonController extends WebMvcConfigurerAdapter {
         return "redirect:/all";
     }
 
-
-
-    @GetMapping("/all")
-    public @ResponseBody Iterable<Person> getAllPersons() {
-       return personRepository.findAll();
+    @RequestMapping("/user/delete/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        personRepository.delete(id);
+        return "redirect:/";
     }
 }

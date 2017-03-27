@@ -10,5 +10,37 @@
 
 <h2>Hello, <span th:text="${person.firstName}">World</span>!</h2>
 
+<div id="user-info">
+    <p>Here is your info:</p>
+    <ul>
+        <li>
+            First Name: <span th:text="${person.firstName}">null</span>
+        </li>
+        <li>
+            Laset Name: <span th:text="${person.lastName}">null</span>
+        </li>
+        <li>
+            Age: <span th:text="${person.age}">null</span>
+        </li>
+    </ul>
+</div>
+
+<div id="user-links">
+    <h3>
+        Here are user links
+    </h3>
+    <ul>
+        <li>
+            <a href="/">Home</a>
+        </li>
+        <li>
+            <a href="/create">Add Name</a>
+        </li>
+        <li>
+            <a th:href="@{'/user/edit/' + ${person.id}}">Edit your info</a>
+        </li>
+    </ul>
+</div>
+
 </body>
 </html>

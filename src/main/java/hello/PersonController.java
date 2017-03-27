@@ -43,17 +43,24 @@ public class PersonController extends WebMvcConfigurerAdapter {
 
     @GetMapping("/user/{id}")
     public String readUser(@PathVariable Long id, Person person, Model model) {
-        Person findPerson = personRepository.findOne(id);
-        model.addAttribute(findPerson);
+        Person user = personRepository.findOne(id);
+        model.addAttribute(user);
         return "user";
     }
 
-    @PostMapping("/user/edit/")
+    @GetMapping("/user/edit/{id}")
+    public String editPage(@PathVariable Long id, Person person, Model model) {
+        Person user = personRepository.findOne(id);
+        model.addAttribute(user);
+        return "update-form";
+    }
+
+    @PostMapping("/user/edit/{id}")
     public String updateUser(@PathVariable Long id, @Valid Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "update-form";
         }
-        Person up = personRepository.findOne(person.getId());
+        Person up = personRepository.findOne(id);
         up.setFirstName(person.getFirstName());
         up.setLastName(person.getLastName());
         up.setAge(person.getAge());

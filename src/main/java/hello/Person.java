@@ -18,15 +18,15 @@ public class Person {
 
     @NotNull
     @Size(min=2, max=20)
-    public String firstName;
+    private String firstName;
 
     @NotNull
     @Size(min=2, max=20)
-    public String lastName;
+    private String lastName;
 
     @NotNull
     @Min(16)
-    public int age;
+    private int age;
 
     private String email;
 

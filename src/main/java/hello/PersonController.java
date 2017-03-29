@@ -25,14 +25,12 @@ public class PersonController extends WebMvcConfigurerAdapter {
     @Autowired 
     private PersonRepository personRepository;
 
+    @Autowired
+    private UserRepository userRepository;
+
     @GetMapping("/")
     public String welcome() {
         return "index";
-    }
-
-    @GetMapping("/all")
-    public @ResponseBody Iterable<Person> getAllPersons() {
-        return personRepository.findAll();
     }
 
     @GetMapping("/create")
@@ -41,12 +39,29 @@ public class PersonController extends WebMvcConfigurerAdapter {
     }
 
     @PostMapping("create")
-    public String createUser(@Valid Person person, BindingResult bindingResult) {
+    public String createEntry(@Valid Person person, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return "form";
         }
+        User user = userRepository.findOne(1L);
+        person.setUser(user);
         personRepository.save(person);
         return "redirect:/all";
+    }
+
+    @GetMapping("/signup")
+    public String signupForm(User user) {
+        return "signup";
+    }
+
+    @PostMapping("/signup")
+    public String createUser(@Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "signup";
+        }
+        userRepository.save(user);
+        return "redirect:/";
+
     }
 
     @GetMapping("/user/{id}")

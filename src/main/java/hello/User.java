@@ -3,6 +3,7 @@ package hello;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Created by jesse on 3/28/2017.
@@ -22,6 +23,9 @@ public class User {
     @Column(nullable = false, unique = true)
     @Size(min = 4, max = 20)
     private String password;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private List<Person> persons;
 
     public User() {
 
@@ -56,5 +60,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
     }
 }

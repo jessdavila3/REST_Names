@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sign Up for Namebook</title>
+</head>
+<body>
+
+<h1>Sign up for Namebook</h1>
+<div id="signup-form">
+    <form th:action="@{/signup}" th:object="${user}" th:method="post">
+        <label for="username">Username</label>
+        <input th:field="*{username}" type="text" id="username" />
+        <label for="password">Password</label>
+        <input th:field="*{password}" type="password" id="password" />
+        <button type="submit">Sign Up</button>
+    </form>
+</div>
+
+</body>
+</html>

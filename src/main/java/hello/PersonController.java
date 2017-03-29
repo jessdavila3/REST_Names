@@ -46,7 +46,7 @@ public class PersonController extends WebMvcConfigurerAdapter {
         User user = userRepository.findOne(1L);
         person.setUser(user);
         personRepository.save(person);
-        return "redirect:/all";
+        return "redirect:/";
     }
 
     @GetMapping("/signup")
@@ -90,7 +90,7 @@ public class PersonController extends WebMvcConfigurerAdapter {
         up.setEmail(person.getEmail());
 
         personRepository.save(up);
-        return "redirect:/all";
+        return "redirect:/";
     }
 
     @RequestMapping("/user/delete/{id}")

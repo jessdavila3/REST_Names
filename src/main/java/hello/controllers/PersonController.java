@@ -1,23 +1,20 @@
-package hello;
+package hello.controllers;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import hello.models.User;
+import hello.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import hello.Person;
-import hello.PersonRepository;
+import hello.models.Person;
+import hello.repositories.PersonRepository;
 
 @Controller
 public class PersonController extends WebMvcConfigurerAdapter {

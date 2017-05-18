@@ -1,4 +1,4 @@
-package hello;
+package hello.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;

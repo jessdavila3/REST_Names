@@ -1,9 +1,9 @@
-package hello;
+package hello.repositories;
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
-import hello.Person;
+import hello.models.Person;
 
 public interface PersonRepository extends CrudRepository<Person, Long> {
 

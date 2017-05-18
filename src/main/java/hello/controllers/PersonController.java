@@ -1,23 +1,20 @@
-package hello;
+package hello.controllers;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import hello.repositories.PersonRepository;
+import hello.models.User;
+import hello.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import hello.Person;
-import hello.PersonRepository;
+import hello.models.Person;
 
 @Controller
 public class PersonController extends WebMvcConfigurerAdapter {
@@ -33,6 +30,19 @@ public class PersonController extends WebMvcConfigurerAdapter {
         return "index";
     }
 
+    @GetMapping("/register")
+    public String register(User user) {
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
+        userRepository.save(user);
+        return "redirect:/";
+    }
     @GetMapping("/create")
     public String createUserForm(Person person) {
         return "form";
@@ -49,20 +59,11 @@ public class PersonController extends WebMvcConfigurerAdapter {
         return "redirect:/";
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/signIn")
     public String signupForm(User user) {
-        return "signup";
+        return "signIn";
     }
 
-    @PostMapping("/signup")
-    public String createUser(@Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "signup";
-        }
-        userRepository.save(user);
-        return "redirect:/";
-
-    }
 
     @GetMapping("/user/{id}")
     public String readUser(@PathVariable Long id, Person person, Model model) {

@@ -1,7 +1,6 @@
-package hello;
+package hello.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.List;
 
@@ -18,7 +17,7 @@ public class User {
 
     @Column(nullable = false, unique = true)
     @Size(min=5, max = 25)
-    private String username;
+    private String email;
 
     @Column(nullable = false, unique = true)
     @Size(min = 4, max = 20)
@@ -33,7 +32,7 @@ public class User {
 
     public User(User user) {
         id = user.id;
-        username = user.username;
+        email = user.email;
         password = user.password;
     }
 
@@ -46,12 +45,12 @@ public class User {
         this.id = id;
     }
 
-    public String getUsername() {
-        return username;
+    public String getEmail() {
+        return email;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {

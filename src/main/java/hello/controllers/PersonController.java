@@ -2,6 +2,8 @@ package hello.controllers;
 
 import javax.validation.Valid;
 
+
+import hello.repositories.PersonRepository;
 import hello.models.User;
 import hello.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
@@ -30,6 +32,19 @@ public class PersonController extends WebMvcConfigurerAdapter {
         return "index";
     }
 
+    @GetMapping("/register")
+    public String register(User user) {
+        return "register";
+    }
+
+    @PostMapping("/register")
+    public String registerUser(@Valid User user, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return "register";
+        }
+        userRepository.save(user);
+        return "redirect:/";
+    }
     @GetMapping("/create")
     public String createUserForm(Person person) {
         return "form";
@@ -46,20 +61,11 @@ public class PersonController extends WebMvcConfigurerAdapter {
         return "redirect:/";
     }
 
-    @GetMapping("/signup")
+    @GetMapping("/signIn")
     public String signupForm(User user) {
-        return "signup";
+        return "signIn";
     }
 
-    @PostMapping("/signup")
-    public String createUser(@Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "signup";
-        }
-        userRepository.save(user);
-        return "redirect:/";
-
-    }
 
     @GetMapping("/user/{id}")
     public String readUser(@PathVariable Long id, Person person, Model model) {

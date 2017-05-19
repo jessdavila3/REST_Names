@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Register for Namebook</title>
+</head>
+<body>
+    <form th:action="@{/register}" th:object="${user}" th:method="post">
+        <label for="email">Email</label>
+        <input th:field="*{email}" type="text" id="email" />
+        <label for="password">Password</label>
+        <input th:field="*{password}" type="password" id="password" />
+        <button type="submit">Sign Up</button>
+    </form>
+</body>
+</html>
